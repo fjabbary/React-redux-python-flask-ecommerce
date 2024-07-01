@@ -1,15 +1,20 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 
 import { useNavigate } from "react-router-dom";
-import { useAddCustomerMutation } from "../../features/api/customersApi";
+import { useParams } from "react-router-dom";
+import {
+  useUpdateCustomerMutation,
+  useGetOneCustomerQuery,
+} from "../../features/api/customersApi";
 
-function AddCustomer() {
+function EditCustomer() {
   const navigate = useNavigate();
-  const [addCustomer, { data, error }] = useAddCustomerMutation();
+  const { id } = useParams();
+  const [updateCustomer] = useUpdateCustomerMutation();
+  const { data } = useGetOneCustomerQuery(id);
 
   const [newCustomer, setNewCustomer] = useState({
     name: "",
@@ -17,6 +22,17 @@ function AddCustomer() {
     phone: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (data) {
+      setNewCustomer({
+        name: data.name || "",
+        email: data.email || "",
+        phone: data.phone || "",
+        password: data.password || "",
+      });
+    }
+  }, [data]);
 
   const [feedback, setFeedback] = useState("");
   const [validated, setValidated] = useState(false);
@@ -33,16 +49,15 @@ function AddCustomer() {
       event.stopPropagation();
       setValidated(true);
     } else {
-      await addCustomer(newCustomer);
-      setFeedback(`${newCustomer.name} has been added`);
-
+      await updateCustomer({ id, newCustomer });
+      setFeedback(`${newCustomer.name} has been updated`);
       navigate("/customers");
     }
   };
 
   return (
     <div className="w-50 mx-auto mt-5 border p-5 bg-light">
-      <h2>Add Customer</h2>
+      <h2>Edit Customer</h2>
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Full Name</Form.Label>
@@ -52,7 +67,7 @@ function AddCustomer() {
             onChange={handleChange}
             pattern="^[a-zA-Z]{3,}\s[a-zA-Z]{3,}$"
             required
-            value={newCustomer.name}
+            value={newCustomer?.name}
           />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           <Form.Control.Feedback type="invalid">
@@ -69,7 +84,7 @@ function AddCustomer() {
             onChange={handleChange}
             pattern="[\w.]+@[\w]+[.][a-z]{2,}"
             required
-            value={newCustomer.email}
+            value={newCustomer?.email}
           />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           <Form.Control.Feedback type="invalid">
@@ -85,7 +100,7 @@ function AddCustomer() {
             onChange={handleChange}
             pattern="[\d]{10}"
             required
-            value={newCustomer.phone}
+            value={newCustomer?.phone}
           />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           <Form.Control.Feedback type="invalid">
@@ -101,7 +116,7 @@ function AddCustomer() {
             onChange={handleChange}
             pattern="[a-zA-Z0-9]{6,}"
             required
-            value={newCustomer.password}
+            value={newCustomer?.password}
           />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           <Form.Control.Feedback type="invalid">
@@ -110,7 +125,7 @@ function AddCustomer() {
         </Form.Group>
 
         <Button variant="outline-success" type="submit">
-          <b>Add Customer</b>
+          <b>Update Customer Info</b>
         </Button>
       </Form>
 
@@ -123,4 +138,4 @@ function AddCustomer() {
   );
 }
 
-export default AddCustomer;
+export default EditCustomer;

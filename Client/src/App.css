@@ -17,3 +17,40 @@ nav {
 nav a {
   color: #fff !important;
 }
+
+.home {
+  background-image: url("https://img.freepik.com/free-photo/black-friday-elements-assortment_23-2149074075.jpg?t=st=1719777550~exp=1719781150~hmac=9b8fcc3df3037fa23c2e0d5c7f9081fb589b5c97d0aa3c7a5d6a2d84ed87a9ce&w=1380");
+  background-size: cover;
+  height: 100vh;
+  position: relative;
+}
+
+.home-layout {
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.shop-now {
+  position: relative;
+  z-index: 10;
+  left: 50%;
+  top: 20%;
+  transform: translateX(-50%);
+}
+
+.bi-handbag-fill {
+  color: #ffc118;
+  font-size: 1.5rem;
+}
+
+.card-img-top {
+  height: 190px;
+}
+
+.navbar-toggler {
+  background: #fff !important;
+}

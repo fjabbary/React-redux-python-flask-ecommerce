@@ -216,7 +216,6 @@ def add_customer():
       
     except ValidationError as err:  
       return jsonify(err.messages), 400
-
     
     with Session(db.engine) as session:
         with session.begin():
@@ -234,13 +233,18 @@ def add_customer():
           valid_email = re.match(email_regex, email)
           valid_phone = re.match(phone_regex, phone)
           
-          if (valid_name and valid_email and valid_phone):
-              new_customer = Customer(name=name, email=email, phone=phone, password=hashed_password)
-              session.add(new_customer)
-              session.commit()
+          if not (valid_name and valid_email and valid_phone):
+                return jsonify({"Message": "Please enter valid name (3 characters minimum), valid email and valid phone number (e.g., 123-456-7890 or (123) 456-7890 or 1234567890), and valid password (6 characters minimum)"}), 400
           
-          else:  
-              return jsonify({"Message": "Please enter valid name (3 characters minimum), valid email and valud phone number (e.g., 123-456-7890 or (123) 456-7890 or 1234567890) "})
+          existing_customer = session.query(Customer).filter_by(email=email).first()
+          
+          if existing_customer:
+                return jsonify({"Message": "Email already exists. Please use a different email."}), 400
+
+            # Add new customer if email does not exist
+          new_customer = Customer(name=name, email=email, phone=phone, password=hashed_password)
+          session.add(new_customer)
+          session.commit()
                 
     return jsonify({"Message": "New customer added successfully!"})
 
@@ -259,8 +263,14 @@ def login():
     
     if not customer or not bcrypt.checkpw(password.encode('utf-8'), customer.password.encode('utf-8')):
         return jsonify({"message": "Invalid email or password"}), 401
+      
+    additional_claims = {
+      'customer_id': customer.customer_id,
+      'email': customer.email,
+      'name': customer.name
+    }
 
-    access_token = create_access_token(identity=customer.customer_id)
+    access_token = create_access_token(identity=customer.customer_id, additional_claims=additional_claims)
     return jsonify(access_token=access_token)
 
 

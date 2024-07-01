@@ -1,16 +1,19 @@
 
-import rootReducer from './features/rootReducer';
 
 import { configureStore } from '@reduxjs/toolkit';
-import { productsApi } from './features/api/productSlice'; // Adjust the path as per your file structure
+import { productsApi } from './features/api/productsApi';
+import { customersApi } from './features/api/customersApi';
+
+import productsReducer from './features/productsSlice'
 
 export const store = configureStore({
   reducer: {
-    ...rootReducer,
+    products: productsReducer,
     [productsApi.reducerPath]: productsApi.reducer,
+    [customersApi.reducerPath]: customersApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(productsApi.middleware),
+    getDefaultMiddleware().concat(productsApi.middleware).concat(customersApi.middleware),
 });
 
 export default store;
