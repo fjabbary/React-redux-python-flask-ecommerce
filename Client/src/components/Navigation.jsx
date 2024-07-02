@@ -4,8 +4,12 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleCart } from "../features/cartSlice";
 
 const Navigation = () => {
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector((state) => state.cart);
   return (
     <Navbar expand="lg" className="bg-dark">
       <Container>
@@ -58,10 +62,13 @@ const Navigation = () => {
                 <i className="bi bi-box-arrow-in-right me-2 text-warning"></i>
                 Login
               </Nav.Link>
-              <Nav.Link to="/login" className="mx-3" as={Link}>
-                <i className="bi bi-handbag-fill">
+              <Nav.Link className="mx-3" as={Link}>
+                <i
+                  className="bi bi-handbag-fill"
+                  onClick={() => dispatch(toggleCart())}
+                >
                   {" "}
-                  <span id="cart-items-count">0</span>
+                  <span id="cart-items-count">{cartItems.length}</span>
                 </i>
               </Nav.Link>
             </div>

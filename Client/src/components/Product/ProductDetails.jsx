@@ -10,9 +10,13 @@ import Card from "react-bootstrap/Card";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../features/cartSlice";
+
 function ProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [productDetails, setProductDetails] = useState({});
 
   const { data, isLoading, isError } = useGetOneProductQuery(id);
@@ -21,6 +25,10 @@ function ProductDetails() {
   const handleRemove = async (id) => {
     await deleteProduct(id);
     navigate("/products");
+  };
+
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
   };
 
   return (
@@ -38,7 +46,9 @@ function ProductDetails() {
                 <b>Price: </b> ${data?.price}
               </Card.Text>
               <div className="mt-5 d-flex justify-content-between">
-                {/* <Button variant="success">Add to Cart</Button> */}
+                <Button variant="success" onClick={() => handleAddToCart(data)}>
+                  Add to Cart
+                </Button>
                 <Button
                   variant="outline-danger"
                   onClick={() => handleRemove(id)}

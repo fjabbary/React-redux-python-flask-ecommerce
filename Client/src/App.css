@@ -54,3 +54,24 @@ nav a {
 .navbar-toggler {
   background: #fff !important;
 }
+
+#cart {
+  height: 100vh;
+  position: absolute;
+  right: 0;
+  width: 350px;
+  margin-top: 3rem;
+  background: #f1f1f1;
+  border: 1px solid #ccc;
+  box-shadow: -3px -1px 6px #ccc;
+}
+
+#cart-image {
+  width: 100px;
+  height: 100px;
+}
+
+#cart-image img {
+  width: 100%;
+  height: 100%;
+}

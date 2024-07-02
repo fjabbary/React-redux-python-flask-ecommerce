@@ -9,7 +9,7 @@ const Home = () => {
         className="shop-now"
         size="lg"
         as={Link}
-        to="/products/add"
+        to="/products"
       >
         Shop Now
       </Button>

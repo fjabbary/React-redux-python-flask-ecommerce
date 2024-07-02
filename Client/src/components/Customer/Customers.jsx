@@ -41,7 +41,7 @@ function Customers() {
                   <Link
                     className="btn-sm me-3 btn btn-outline-dark"
                     variant="outline-dark"
-                    to={`/customer/${customer.customer_id}`}
+                    to={`/customers/${customer.customer_id}`}
                   >
                     Customer Details
                   </Link>
