@@ -35,7 +35,7 @@ function ProductDetails() {
     <Container className="mt-5 mx-auto">
       <Card style={{ width: "80%", margin: "auto" }}>
         <Row>
-          <Col md={12} lg={6}>
+          <Col md={12} lg={6} className="align-self-center">
             <Card.Img variant="top" src={data?.image} />
           </Col>
           <Col md={12} lg={6}>

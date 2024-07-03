@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 const initialState = {
   isCartOpen: false,
-  cartItems: [],
+  cartItems: JSON.parse(localStorage.getItem('cartItems')) || [],
   cartTotalQuantity: 0,
   cartTotalAmount: 0
 };
@@ -30,16 +30,24 @@ const cartSlice = createSlice({
           position: "bottom-left"
         })
       }
-
-
+      localStorage.setItem('cartItems', JSON.stringify(state.cartItems))
     },
 
     removeFromCart(state, action) {
-      console.log(action.payload);
+      state.cartItems = state.cartItems.filter(item => item.product_id !== action.payload.product_id)
+      toast.error(`${action.payload.name} removed from the cart`, {
+        position: "bottom-left"
+      })
+      localStorage.setItem('cartItems', JSON.stringify(state.cartItems))
+    },
+
+    removeAllCartItems(state, action) {
+      state.cartItems = [];
+      localStorage.setItem('cartItems', JSON.stringify(state.cartItems))
     }
   },
 });
 
-export const { toggleCart, addToCart, removeFromCart } = cartSlice.actions;
+export const { toggleCart, addToCart, removeFromCart, removeAllCartItems } = cartSlice.actions;
 
 export default cartSlice.reducer;

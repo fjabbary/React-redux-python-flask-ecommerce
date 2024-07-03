@@ -29,29 +29,29 @@ function App() {
       <ToastContainer />
       <Navigation />
 
-      <Container>
-        <Row>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/products/add" element={<AddProduct />} />
-            <Route path="/products/:id" element={<ProductDetails />} />
-            <Route path="/products/edit/:id" element={<EditProduct />} />
-            <Route path="customers" element={<Customers />} />
-            <Route path="customers/add" element={<AddCustomer />} />
-            <Route path="customers/edit/:id" element={<EditCustomer />} />
-            <Route path="customers/:id" element={<CustomerDetails />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+      {/* <Container>
+        <Row> */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/add" element={<AddProduct />} />
+        <Route path="/products/:id" element={<ProductDetails />} />
+        <Route path="/products/edit/:id" element={<EditProduct />} />
+        <Route path="customers" element={<Customers />} />
+        <Route path="customers/add" element={<AddCustomer />} />
+        <Route path="customers/edit/:id" element={<EditCustomer />} />
+        <Route path="customers/:id" element={<CustomerDetails />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
 
-          {isCartOpen && (
-            <div id="cart">
-              <Cart />
-            </div>
-          )}
-        </Row>
-      </Container>
+      {isCartOpen && (
+        <div id="cart" className="p-3">
+          <Cart />
+        </div>
+      )}
+      {/* </Row>
+      </Container> */}
     </>
   );
 }
