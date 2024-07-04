@@ -16,9 +16,6 @@ import CustomerDetails from "./components/Customer/CustomerDetails";
 import Cart from "./components/Cart";
 import { ToastContainer } from "react-toastify";
 
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { useSelector } from "react-redux";
 
 function App() {
@@ -28,9 +25,6 @@ function App() {
     <>
       <ToastContainer />
       <Navigation />
-
-      {/* <Container>
-        <Row> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
@@ -50,8 +44,6 @@ function App() {
           <Cart />
         </div>
       )}
-      {/* </Row>
-      </Container> */}
     </>
   );
 }

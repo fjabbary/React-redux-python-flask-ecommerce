@@ -37,6 +37,16 @@ export const customersApi = createApi({
         method: "DELETE",
       }),
     }),
+
+    loginCustomer: builder.mutation({
+      query: (credentials) => {
+        return {
+          url: "/login",
+          method: "POST",
+          body: credentials
+        }
+      }
+    }),
   }),
 });
 
@@ -46,4 +56,5 @@ export const {
   useAddCustomerMutation,
   useUpdateCustomerMutation,
   useDeleteCustomerMutation,
+  useLoginCustomerMutation
 } = customersApi;
