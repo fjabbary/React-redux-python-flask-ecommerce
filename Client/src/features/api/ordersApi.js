@@ -15,7 +15,6 @@ export const ordersApi = createApi({
 
     addOrder: builder.mutation({
       query: (newOrder) => {
-        console.log(newOrder);
         return {
           url: "/orders",
           method: "POST",
@@ -36,7 +35,6 @@ export const ordersApi = createApi({
 
     deleteOrder: builder.mutation({
       query: (id) => {
-        console.log('==> ', id);
         return {
           url: `/orders/${id}`,
           method: "DELETE",

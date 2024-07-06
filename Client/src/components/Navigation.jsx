@@ -10,7 +10,7 @@ import { toggleCart } from "../features/cartSlice";
 import { removeToken } from "../features/authSlice";
 import { ListGroup } from "react-bootstrap";
 import { jwtDecode } from "jwt-decode";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 const Navigation = () => {
   const [loggedInUser, setLoggedInUser] = useState({});
@@ -28,14 +28,14 @@ const Navigation = () => {
     }
   }, [token]);
 
-  const handleRemoveToken = () => {
+  const handleRemoveToken = useCallback(() => {
     setTimeout(() => {
       dispatch(removeToken());
       setLoggedInUser({});
     }, 500);
-  };
+  });
 
-  useEffect(() => {
+  useMemo(() => {
     let sum = 0;
     cartItems.forEach((item) => {
       sum += item.quantity;

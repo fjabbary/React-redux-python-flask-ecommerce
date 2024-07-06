@@ -8,7 +8,6 @@ import { Table } from "react-bootstrap";
 const Orders = () => {
   const { data, refetch } = useGetAllordersQuery();
   const [deleteOrder] = useDeleteOrderMutation();
-  console.log(data);
 
   useEffect(() => {
     refetch();

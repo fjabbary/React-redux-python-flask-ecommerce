@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   removeFromCart,
@@ -22,12 +22,11 @@ const Cart = () => {
     dispatch(removeFromCart(product));
   };
 
-  useEffect(() => {
+  useMemo(() => {
     let sum = 0;
     let sumAmount = 0;
     cartItems.forEach((item) => (sum += item.quantity));
     cartItems.forEach((item) => (sumAmount += item.quantity * item.price));
-
     setTotalItems(sum);
     setTotalCost(sumAmount);
   }, [cartItems]);

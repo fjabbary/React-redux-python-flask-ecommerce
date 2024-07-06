@@ -35,7 +35,6 @@ function CustomerDetails() {
   };
 
   const cancelOrder = async (orderId) => {
-    console.log(orderId);
     const res = await axios.post(
       `http://127.0.0.1:5000/orders/cancel/${orderId}`
     );

@@ -11,13 +11,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function Products() {
-  const [products, setProducts] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
-  const [cartOriginalItems, setCartOriginalItems] = useState([]);
-  const [show, setShow] = useState(false);
-
   const location = useLocation();
-  const navigate = useNavigate();
 
   const customer = location.state;
   const { data, error, isError, isLoading, refetch } = useGetAllProductsQuery();
@@ -94,24 +88,3 @@ function Products() {
 }
 
 export default Products;
-
-// const handleAddToCart = (product) => {
-//   const existingItem = cartItems.find(
-//     (item) => item.product_id === product.product_id
-//   );
-
-//   if (!existingItem) {
-//     const newItem = { ...product, qty: 1 };
-//     setCartItems([...cartItems, newItem]);
-//     setCartOriginalItems([...cartOriginalItems, product]);
-//   } else {
-//     const updatedProducts = cartItems.map((item) => {
-//       if (item.product_id === product.product_id) {
-//         return { ...item, qty: item.qty + 1 };
-//       }
-//       return item;
-//     });
-
-//     setCartItems(updatedProducts);
-//   }
-// };
