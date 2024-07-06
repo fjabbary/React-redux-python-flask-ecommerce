@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useLoginCustomerMutation } from "../features/api/customersApi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { setToken } from "../features/authSlice";
 import { useDispatch } from "react-redux";
 
@@ -35,12 +35,12 @@ const Login = () => {
       dispatch(setToken(token.data.access_token));
       navigate("/products");
     } catch (error) {
-      setErrMsg(error.data.message);
+      setErrMsg("Invalid username or password");
     }
   };
 
   return (
-    <div className="w-50 mx-auto mt-5 border p-5 bg-light">
+    <div className="mx-auto mt-5 border p-5 bg-light" id="login-form">
       <h2 className="text-center">Customer Login</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
@@ -69,6 +69,10 @@ const Login = () => {
           />
         </Form.Group>
         <p className="text-danger">
+          <Link to="/customers/add" className="text-decoration-none">
+            <small>Don't have an account? Sign up here.</small>
+          </Link>
+          <br />
           <small>{errMsg}</small>
         </p>
 

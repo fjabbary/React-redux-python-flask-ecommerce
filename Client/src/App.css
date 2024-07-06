@@ -60,7 +60,7 @@ nav a {
   position: absolute;
   right: 0;
   top: 40px;
-  width: 350px;
+  width: 500px;
   margin-top: 3rem;
   background: #f1f1f1;
   border: 1px solid #ccc;
@@ -68,7 +68,7 @@ nav a {
 }
 
 #cart-image {
-  width: 100px;
+  width: auto;
   height: 100px;
 }
 
@@ -79,4 +79,27 @@ nav a {
 
 .card-img-top {
   width: unset !important;
+}
+
+#login-form {
+  width: 80%;
+}
+
+@media (min-width: 992px) {
+  #login-form {
+    width: 50%;
+  }
+}
+@media (min-width: 1200px) {
+  #login-form {
+    width: 33%;
+  }
+}
+
+.order-pending {
+  background-color: rgb(20, 206, 20);
+}
+
+.order-cancelled {
+  background-color: rgb(255, 95, 95);
 }

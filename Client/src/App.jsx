@@ -17,6 +17,7 @@ import Cart from "./components/Cart";
 import { ToastContainer } from "react-toastify";
 
 import { useSelector } from "react-redux";
+import Orders from "./components/Orders/Orders";
 
 function App() {
   const { isCartOpen } = useSelector((state) => state.cart);
@@ -36,6 +37,7 @@ function App() {
         <Route path="customers/edit/:id" element={<EditCustomer />} />
         <Route path="customers/:id" element={<CustomerDetails />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/orders" element={<Orders />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
 

@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 
 const Navigation = () => {
   const [loggedInUser, setLoggedInUser] = useState({});
+  const [cartTotalItems, setCartTotalItems] = useState(0);
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
   const token = useSelector((state) => state.auth.token) || "";
@@ -22,7 +23,6 @@ const Navigation = () => {
     try {
       const user = jwtDecode(token);
       setLoggedInUser(user);
-      console.log(user);
     } catch (error) {
       console.log("error");
     }
@@ -34,6 +34,14 @@ const Navigation = () => {
       setLoggedInUser({});
     }, 500);
   };
+
+  useEffect(() => {
+    let sum = 0;
+    cartItems.forEach((item) => {
+      sum += item.quantity;
+    });
+    setCartTotalItems(sum);
+  }, [cartItems]);
 
   return (
     <Navbar expand="lg" className="bg-dark">
@@ -78,6 +86,9 @@ const Navigation = () => {
                   Display Customers
                 </NavDropdown.Item>
               </NavDropdown>
+              <Nav.Link to="/orders" as={Link}>
+                Orders
+              </Nav.Link>
             </div>
             <div className="d-flex align-items-center">
               {!loggedInUser.customer_id ? (
@@ -112,7 +123,9 @@ const Navigation = () => {
                   className="bi bi-handbag-fill"
                   onClick={() => dispatch(toggleCart())}
                 >
-                  <span id="cart-items-count">{cartItems.length}</span>
+                  <span className="ms-1" id="cart-items-count">
+                    {cartTotalItems}
+                  </span>
                 </i>
               </Nav.Link>
             </div>
